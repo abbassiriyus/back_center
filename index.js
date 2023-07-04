@@ -34,9 +34,6 @@ app.post("/course", (req, res) => {
     const body = req.body
     const imgFile = req.files.course_img
     const imgName = Date.now()+imgFile.name
-if(req.files.course_img){
-    imgFile=req.body.course_img
-}
     pool.query('INSERT INTO course (course_title_ru, course_title_uz, course_price, course_img, course_all, cartegoryid, course_time, course_teacherid) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
         [body.course_title_ru, body.course_title_uz, body.course_price, req.hostname+"/"+imgName, body.course_all, body.cartegoryid, body.course_time, body.course_teacherid], (err, result) => {
             if (err) {
