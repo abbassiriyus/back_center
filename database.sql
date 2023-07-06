@@ -7,6 +7,7 @@ CREATE TABLE "course" (
     "course_all" TEXT NOT NULL,
     "cartegoryid" integer NOT NULL,
     "course_time" TEXT NOT NULL,
+    "prosent" TEXT NOT NULL,
     "course_teacherid" integer NOT NULL,
     "syscreatedatutc" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT current_timestamp
     );
@@ -19,15 +20,25 @@ CREATE TABLE "course" (
     "syscreatedatutc" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT current_timestamp
     );
 
-CREATE TABLE "teacter" (
-    "teacterid" SERIAL PRIMARY KEY,
-    "teacter_firs_ru" TEXT NOT NULL,
-    "teacter_firs_uz" TEXT NOT NULL,
-    "teacter_price" TEXT NOT NULL,
-    "teacter_img" TEXT NOT NULL,
-    "teacter_all" TEXT NOT NULL,
-    "cartegoryid" integer NOT NULL,
-    "teacter_time" TEXT NOT NULL,
-    "teacter_teacherid" integer NOT NULL,
+CREATE TABLE "teacher" (
+    "teacherid" SERIAL PRIMARY KEY,
+    "teacher_fullname_ru" TEXT NOT NULL,
+    "teacher_fullname_uz" TEXT NOT NULL,
+    "prosent" TEXT NOT NULL,
+    "teacher_img" TEXT NOT NULL,
+    "teacher_all" TEXT NOT NULL,
+    "teacher_time" TEXT NOT NULL,
     "syscreatedatutc" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT current_timestamp
     ); 
+
+CREATE TABLE "users" (
+    "userid" SERIAL PRIMARY KEY,
+    "email" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "user_password" TEXT NOT NULL,
+    "fullname" TEXT NOT NULL,
+    "user_img" TEXT NOT NULL,
+    "user_all" TEXT NOT NULL,
+    "user_time" TEXT NOT NULL,
+    "syscreatedatutc" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT current_timestamp
+); 
