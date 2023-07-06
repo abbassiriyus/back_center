@@ -8,6 +8,7 @@ router.get('/users', function(req, res) {
         pool.query("SELECT * FROM users", (err, result) => {
             if (!err) {
                 res.status(200).send(result.rows)
+                
             } else {
                 res.send(err)
             }
@@ -23,17 +24,26 @@ router.get('/teacherall', function(req, res) {
 });  
 router.post("/users", (req, res) => {
     const body = req.body
-    pool.query('INSERT INTO users (email,username,password,fullname,user_img,user_all,user_time,syscreatedatutc) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *',[body.email,body.username,body.password,body.fullname,body.user_img,body.user_all,body.user_time,new Date()], (err, result) => {
+    if(body.position==1){
+        pool.query('INSERT INTO users (email,username,user_password,user_img,position,create_time) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *',[body.email,body.username,body.user_password,body.user_img,body.position,new Date()], (err, result) => {
             if (err) {
                 res.status(400).send(err)
             } else {
                 res.status(201).send("Created")
             }
         })
+        res.status(201).send("Created")
+    }else{
+        res.status(400).send(err)
+    }
+
 })
 router.post('/login', function(req, res) {
   res.send('About birds');
 });
+router.post('/test', function(req, res) {
+    res.send('About birds');
+  });
 
 module.exports = router;
 
