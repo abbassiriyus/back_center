@@ -39,7 +39,23 @@ router.post("/users", (req, res) => {
 
 })
 router.post('/login', function(req, res) {
-  res.send('About birds');
+    var body=req.body
+    pool.query("SELECT * FROM users", (err, result) => {
+        if (!err) {
+            var a=false
+           result.rows.map(item=>{
+            if(item.user_password==body.user_password && (item.email==body.email || item.username==body.username)){
+                 var token = jwt.sign({ user_password: body.user_password }, 'shhhhh'); 
+                 a=true
+            res.status(200).send(token) 
+            }
+           })
+       if(!a){res.status(500).send("Royhatdan o`tmagan") }
+        } else {
+            res.status(401).send(err)
+        }
+    })
+    
 });
 router.post('/test', function(req, res) {
     res.send('About birds');
