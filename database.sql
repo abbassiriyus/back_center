@@ -1,5 +1,5 @@
 
-   CREATE TABLE "course" (
+CREATE TABLE "course" (
     "course_id" SERIAL PRIMARY KEY,
     "course_title_ru" TEXT NOT NULL,
     "course_title_uz" TEXT NOT NULL,
@@ -21,19 +21,17 @@
     "create_time" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT current_timestamp
     );
 
-
-
 CREATE TABLE "users" (
     "user_id" SERIAL PRIMARY KEY,
     "email" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "user_password" TEXT NOT NULL,
     "user_img" TEXT NOT NULL,
-    "position" TEXT NOT NULL,
+    "position_id" integer NOT NULL,
     "create_time" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT 
     current_timestamp); 
 
- CREATE TABLE "group" (
+CREATE TABLE "group" (
     "group_id" SERIAL PRIMARY KEY,
     "group_name"TEXT NOT NULL,
     "course_id" integer NOT NULL,

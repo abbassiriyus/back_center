@@ -4,6 +4,8 @@ const cors = require("cors")
 const fileUpload = require("express-fileupload")
 const pool = require("./db")
 const user=require('./routes/user.js')
+const course=require('./routes/course.js')
+
 app.use(fileUpload())
 app.use(cors())
 app.use(express.static("Images"))
@@ -114,7 +116,7 @@ app.get("/course", (req, res) => {
 //     })
 // })
 app.use("/auth" , user )
-
+app.use("/api" , course )
 app.listen(5000, () => {
     console.log("Localhost is Running");
 })
