@@ -13,6 +13,7 @@
 --     foreign key ("cartegory_id") references "category"("category_id")
 --     );
 
+
 --  CREATE TABLE "category" (
 --     "category_id" SERIAL PRIMARY KEY,
 --     "category_title_uz" TEXT NOT NULL,
@@ -66,6 +67,7 @@ CREATE TABLE "address" (
     "country" TEXT NOT NULL,
     "city" TEXT NOT NULL
 );
+
 
 CREATE TABLE "users" (
     "user_id" serial primary key,
