@@ -13,7 +13,7 @@ CREATE TABLE "course" (
     foreign key ("cartegory_id") references "category"("category_id")
     );
 
- CREATE TABLE "category" (
+CREATE TABLE "category" (
     "category_id" SERIAL PRIMARY KEY,
     "category_title_uz" TEXT NOT NULL,
     "category_title_ru" TEXT NOT NULL,
