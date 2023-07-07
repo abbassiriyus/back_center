@@ -19,7 +19,7 @@ function ensureToken(req,res,next){
 }
 
 // get alluser
-router.get('/users',ensureToken, function(req, res) {
+router.get('/users', function(req, res) {
         pool.query("SELECT * FROM users", (err, result) => {
             if (!err) {
                 res.status(200).send(result.rows)
@@ -76,17 +76,26 @@ router.delete("/users/:id", (req, res) => {
 
 
 // create all user
-router.post("/users",ensureToken, (req, res) => {
+// router.post("/users",ensureToken, (req, res) => {
+//     const body = req.body
+//         pool.query('INSERT INTO users (email,username,user_password,user_img,position,create_time) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *',[body.email,body.username,body.user_password,body.user_img,body.position,new Date()], (err, result) => {
+//             if (err) {
+//                 res.status(400).send(err)
+//             } else {
+//                 res.status(201).send("Created")
+//             }
+//         })
+// })
+router.post("/users", (req, res) => {
     const body = req.body
-        pool.query('INSERT INTO users (email,username,user_password,user_img,position,create_time) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *',[body.email,body.username,body.user_password,body.user_img,body.position,new Date()], (err, result) => {
+        pool.query('INSERT INTO users (user_password,email,surName,LastName,databirth,dataRegirter,address_id,position_id,username,create_time) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *',[body.user_password,body.email,body.surName,body.LastName,body.databirth,body.dataRegirter,body.address_id,body.position_id,body.username,new Date()], (err, result) => {
             if (err) {
-                res.status(400).send(err)
+                res.status(400).send(body)
             } else {
                 res.status(201).send("Created")
             }
         })
 })
-
 
 // login in user_password email username
 router.post('/login', function(req, res) {

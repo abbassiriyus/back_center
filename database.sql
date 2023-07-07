@@ -69,7 +69,6 @@ CREATE TABLE "address" (
 
 CREATE TABLE "users" (
     "user_id" serial primary key,
-    "name" TEXT NOT NULL,
     "user_password" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "surName" TEXT NOT NULL,
@@ -79,7 +78,7 @@ CREATE TABLE "users" (
     "address_id" integer not null,
     "position_id" integer not null,
     "username" TEXT NOT NULL,
-    "create_time" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT,
+    "create_time" timestamp default current_timestamp not null,
     foreign key ("address_id") references "address"("address_id"),
     foreign key ("position_id") references "position"("position_id")
 );
@@ -112,7 +111,7 @@ CREATE TABLE "course" (
     "Image" TEXT NOT NULL,
     "Time" TEXT NOT NULL,
     "Lesson_lenght" TEXT NOT NULL,
-    "create_time" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT,
+    "create_time" timestamp default current_timestamp not null,
     foreign key ("category_id") references "category"("category_id")
 );
 
