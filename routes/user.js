@@ -87,15 +87,18 @@ router.delete("/users/:id", (req, res) => {
 //         })
 // })
 router.post("/users", (req, res) => {
-    const body = req.body
-        pool.query('INSERT INTO users (user_password,email,surName,LastName,databirth,dataRegirter,address_id,position_id,username,create_time) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *',[body.user_password,body.email,body.surName,body.LastName,body.databirth,body.dataRegirter,body.address_id,body.position_id,body.username,new Date()], (err, result) => {
+    const body = req.body;
+        pool.query('INSERT INTO users (user_password, email, "surName", "LastName", databirth, "dataRegirter", address_id, position_id, username) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
+        [ body.user_password,body.email, body.surName, body.LastName, body.databirth, body.dataRegirter, body.address_id, body.position_id, body.username],
+         (err, result) => {
             if (err) {
-                res.status(400).send(body)
+                res.status(400).send(err);
             } else {
-                res.status(201).send("Created")
+                res.status(201).send("Created");
             }
-        })
-})
+        });
+});
+
 
 // login in user_password email username
 router.post('/login', function(req, res) {
