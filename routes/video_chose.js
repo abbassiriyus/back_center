@@ -53,6 +53,7 @@ router.post("/video_chose", (req, res) => {
                 res.status(201).send("Created");
             }
         });
+        
 });
 
 router.delete("/video_chose/:id", (req, res) => {
