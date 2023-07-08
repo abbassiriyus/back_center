@@ -18,8 +18,8 @@ function ensureToken(req,res,next){
     }
 }
 
-router.get("/course", (req, res) => {   
-    pool.query("SELECT * FROM course", (err, result) => {
+router.get("/category", (req, res) => {   
+    pool.query("SELECT * FROM category", (err, result) => {
         if (!err) {
             res.status(200).send(result.rows)
         } else {
@@ -28,9 +28,9 @@ router.get("/course", (req, res) => {
     })
 })
 
-router.get('/course/:id', (req, res) => {
+router.get('/category/:id', (req, res) => {
     
-    pool.query("SELECT * FROM course where course_id=$1", [req.params.id], (err, result) => {
+    pool.query("SELECT * FROM category where category_id=$1", [req.params.id], (err, result) => {
         if (!err) {
             res.status(200).send(result.rows)
         } else {
@@ -40,11 +40,11 @@ router.get('/course/:id', (req, res) => {
 })
 
 
-router.post("/course", (req, res) => {
+router.post("/category", (req, res) => {
     const body = req.body
     const imgFile = req.files.course_img
     const imgName = Date.now()+imgFile.name
-    pool.query('INSERT INTO course (category_title_uz, category_title_ru, category_img) VALUES ($1, $2, $3) RETURNING *',
+    pool.query('INSERT INTO course (category_title_uz, category_title_ru, category_img) VALUES ($1) RETURNING *',
         [body.category_title_uz, body.category_title_ru,category_img], (err, result) => {
             if (err) {
                 res.status(400).send(err)
