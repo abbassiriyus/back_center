@@ -132,7 +132,7 @@ app.get("/course", (req, res) => {
 // })
 app.use("/auth" , user )
 app.use("/api" , position )
-app.use("/api" , address )
+// app.use("/api" , address )
 app.use("/api" , student )
 app.use("/api" , category )
 app.use("/api" , course )

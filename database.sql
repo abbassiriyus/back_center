@@ -22,6 +22,7 @@ CREATE TABLE "users" (
     "address_id" integer not null,
     "position_id" integer not null,
     "username" TEXT NOT NULL,
+    "user_img" TEXT,
     "create_time" timestamp default current_timestamp not null,
     foreign key ("address_id") references "address"("address_id"),
     foreign key ("position_id") references "position"("position_id")
