@@ -80,7 +80,7 @@ router.get('/oneuser', ensureToken, function(req, res) {
 // delete user
 router.delete("/users/:id", (req, res) => {
     const id = req.params.id
-    pool.query('DELETE FROM course WHERE courseid = $1', [id], (err, result) => {
+    pool.query('DELETE FROM users WHERE user_id = $1', [id], (err, result) => {
         if (err) {
             res.status(400).send(err)
         } else {
@@ -93,10 +93,10 @@ router.delete("/users/:id", (req, res) => {
 // create new user
 router.post("/users", (req, res) => {
     const body = req.body;
-    const imgFile = req.files.course_img
+    const imgFile = req.files.user_img
     const imgName = Date.now()+imgFile.name
     pool.query('INSERT INTO users (user_password, email, "surName", "LastName", databirth, "dataRegirter", address_id, position_id, username,user_img) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10) RETURNING *',
-    [ body.user_password,body.email, body.surName, body.LastName, body.databirth, body.dataRegirter, body.address_id, body.position_id, body.username,new Date()+imgName],
+    [ body.user_password,body.email, body.surName, body.LastName, body.databirth, body.dataRegirter, body.address_id, body.position_id, body.username,imgName],
          (err, result) => {
             if (err) {
                 res.status(400).send(err);
