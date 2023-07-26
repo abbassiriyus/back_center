@@ -1,9 +1,9 @@
-/auth/login token olish uchun
+/auth/login token olish uchun POST
 {user_password va (email yoki username)} yuborish kerak
 testiviy 
 email:@gmail
 user_password:1
 username:abbas
 
-/auth/users barcha foydalanuvchilarni oladi token kerak
-/auth/oneuser tokeni kiritilgan userni olib beradi
+/auth/users barcha foydalanuvchilar GET,DELETE,POST token kerak 
+/auth/oneuser tokeni kiritilgan userni olib beradi,GET
