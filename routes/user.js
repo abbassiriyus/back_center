@@ -12,14 +12,20 @@ function ensureToken(req,res,next){
     const bearer=bearerHeader.split(" ")
     const bearerToken=bearer[1]
     req.token=bearerToken
-    next()
+    jwt.verify(bearerToken,'secret',((require1,result1)=>{
+        if(result1==undefined){
+            res.status(502).send("token failed")
+        }else{
+         next()
+        }
+     }))
     }else{
         res.status(403)
     }
 }
 
 // get alluser
-router.get('/users', function(req, res) {
+router.get('/users',ensureToken, function(req, res) {
         pool.query("SELECT * FROM users", (err, result) => {
             if (!err) {
                 res.status(200).send(result.rows)
@@ -47,16 +53,25 @@ router.get('/oneuser', ensureToken, function(req, res) {
  console.log(req.token);
  var token=req.token
  jwt.verify(token,'secret',((require1,result1)=>{
+    if(result1==undefined){
+        res.status(502).send("token failed")
+    }else{
     pool.query("SELECT * FROM users", (err, result) => {
         if (!err) {
-      var a=result.rows.filter(item=>item.email===result1.email)
+            console.log(result1);
+            if(result1.email){
+            var a=result.rows.filter(item=>(item.email===result1.email ))
+            }else{
+            var a=result.rows.filter(item=>(item.username===result1.username))
+            }
+     
       var a2=a.filter(item=>item.user_password===result1.user_password)
-
             res.status(200).send(a2) 
         } else {
             res.send(err)
         }
-    })
+    })    
+    }
  }))
 //  res.send("sdds").status(200)
 });
@@ -75,17 +90,7 @@ router.delete("/users/:id", (req, res) => {
 })
 
 
-// create all user
-// router.post("/users",ensureToken, (req, res) => {
-//     const body = req.body
-//         pool.query('INSERT INTO users (email,username,user_password,user_img,position,create_time) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *',[body.email,body.username,body.user_password,body.user_img,body.position,new Date()], (err, result) => {
-//             if (err) {
-//                 res.status(400).send(err)
-//             } else {
-//                 res.status(201).send("Created")
-//             }
-//         })
-// })
+// create new user
 router.post("/users", (req, res) => {
     const body = req.body;
     const imgFile = req.files.course_img
@@ -113,7 +118,7 @@ router.post('/login', function(req, res) {
         var a=false
         result.rows.map(item=>{
         if(item.user_password==body.user_password && (item.email==body.email || item.username==body.username)){
-                  token = jwt.sign({ user_password:body.user_password,email:body.email }, 'secret');
+                  token = jwt.sign({ user_password:body.user_password,email:body.email,username:body.username}, 'secret');
                   position=item.position
                  a=true }
            })
